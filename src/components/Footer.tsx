@@ -9,9 +9,17 @@ export const Footer: React.FC = () => {
   const handleSecretTripleClick = () => {
     const newCount = clickCount + 1;
     setClickCount(newCount);
+
+    if (newCount === 1) {
+      // Reset after 3 seconds if not completed
+      setTimeout(() => setClickCount(0), 3000);
+    }
+
     if (newCount >= 3) {
       setClickCount(0);
       openAdminWithAuth();
+    } else if (siteConfig.hideAdminButton) {
+      showToast(`관리자 모드 진입 (${newCount}/3회 클릭)`, 'info');
     }
   };
 
