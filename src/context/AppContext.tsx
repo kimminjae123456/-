@@ -11,6 +11,12 @@ interface AppContextType {
   setActiveTab: (tab: string) => void;
   isAdminOpen: boolean;
   setIsAdminOpen: (open: boolean) => void;
+  isAdminAuthenticated: boolean;
+  setIsAdminAuthenticated: (auth: boolean) => void;
+  isAuthModalOpen: boolean;
+  setIsAuthModalOpen: (open: boolean) => void;
+  openAdminWithAuth: () => void;
+  logoutAdmin: () => void;
   isSurveyModalOpen: boolean;
   setIsSurveyModalOpen: (open: boolean) => void;
   toasts: ToastMessage[];
@@ -95,8 +101,28 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const [activeTab, setActiveTab] = useState<string>('home');
   const [isAdminOpen, setIsAdminOpen] = useState<boolean>(false);
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [isSurveyModalOpen, setIsSurveyModalOpen] = useState<boolean>(false);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+
+  const openAdminWithAuth = () => {
+    if (isAdminOpen) {
+      setIsAdminOpen(false);
+      return;
+    }
+    if (isAdminAuthenticated) {
+      setIsAdminOpen(true);
+    } else {
+      setIsAuthModalOpen(true);
+    }
+  };
+
+  const logoutAdmin = () => {
+    setIsAdminAuthenticated(false);
+    setIsAdminOpen(false);
+    showToast('관리자 세션이 종료되었습니다.');
+  };
 
   // Save changes to localStorage
   useEffect(() => {
@@ -248,6 +274,12 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         setActiveTab,
         isAdminOpen,
         setIsAdminOpen,
+        isAdminAuthenticated,
+        setIsAdminAuthenticated,
+        isAuthModalOpen,
+        setIsAuthModalOpen,
+        openAdminWithAuth,
+        logoutAdmin,
         isSurveyModalOpen,
         setIsSurveyModalOpen,
         toasts,

@@ -8,6 +8,7 @@ import { Portfolio } from './components/Portfolio';
 import { BlogSection } from './components/BlogSection';
 import { SurveyEstimateModal } from './components/SurveyEstimateModal';
 import { AdminDashboard } from './components/AdminDashboard';
+import { AdminAuthModal } from './components/AdminAuthModal';
 import { FloatingBar } from './components/FloatingBar';
 import { Footer } from './components/Footer';
 import { ToastContainer } from './components/Toast';
@@ -44,6 +45,7 @@ export default function App() {
         <Header />
         <MainContent />
         <SurveyEstimateModal />
+        <AdminAuthModal />
         <FloatingBar />
         <ToastContainer />
       </div>

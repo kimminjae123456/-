@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { Sun, Phone, Mail, MapPin, ShieldCheck, Share2, Settings } from 'lucide-react';
 
 export const Footer: React.FC = () => {
-  const { siteConfig, setActiveTab, isAdminOpen, setIsAdminOpen, showToast } = useApp();
+  const { siteConfig, setActiveTab, isAdminOpen, setIsAdminOpen, openAdminWithAuth, showToast } = useApp();
+  const [clickCount, setClickCount] = useState(0);
+
+  const handleSecretTripleClick = () => {
+    const newCount = clickCount + 1;
+    setClickCount(newCount);
+    if (newCount >= 3) {
+      setClickCount(0);
+      openAdminWithAuth();
+    }
+  };
 
   const handleShareSite = () => {
     navigator.clipboard?.writeText(window.location.href);
@@ -44,13 +54,15 @@ export const Footer: React.FC = () => {
                 <span>웹사이트 공유하기</span>
               </button>
 
-              <button
-                onClick={() => setIsAdminOpen(!isAdminOpen)}
-                className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 font-medium flex items-center gap-1.5 transition-colors"
-              >
-                <Settings className="w-3.5 h-3.5 text-amber-400" />
-                <span>{isAdminOpen ? '사용자 모드로 전환' : '관리자 대시보드'}</span>
-              </button>
+              {(!siteConfig.hideAdminButton || isAdminOpen) && (
+                <button
+                  onClick={openAdminWithAuth}
+                  className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 font-medium flex items-center gap-1.5 transition-colors"
+                >
+                  <Settings className="w-3.5 h-3.5 text-amber-400" />
+                  <span>{isAdminOpen ? '사용자 모드로 전환' : '관리자 대시보드'}</span>
+                </button>
+              )}
             </div>
           </div>
 
@@ -122,7 +134,13 @@ export const Footer: React.FC = () => {
         <div className="pt-6 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-4">
           <div>
             <span>상호명: {siteConfig.companyName}</span> | <span>대표자: {siteConfig.ceoName}</span> | <span>사업자등록번호: {siteConfig.businessNumber}</span>
-            <p className="mt-0.5">© 2026 Solar Clear Corp. All Rights Reserved. 본 사이트의 무단 전재 및 복제를 금합니다.</p>
+            <p 
+              onClick={handleSecretTripleClick}
+              className="mt-0.5 cursor-pointer select-none hover:text-slate-400 transition-colors"
+              title="관리자 연속 클릭 액션"
+            >
+              © 2026 Solar Clear Corp. All Rights Reserved. 본 사이트의 무단 전재 및 복제를 금합니다.
+            </p>
           </div>
           <div className="flex items-center gap-2 text-slate-400 font-semibold">
             <ShieldCheck className="w-4 h-4 text-emerald-400" />

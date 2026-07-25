@@ -3,7 +3,7 @@ import { useApp } from '../context/AppContext';
 import { Sun, Phone, FileText, Settings, Menu, X, ArrowRight, ShieldCheck } from 'lucide-react';
 
 export const Header: React.FC = () => {
-  const { siteConfig, activeTab, setActiveTab, setIsSurveyModalOpen, isAdminOpen, setIsAdminOpen } = useApp();
+  const { siteConfig, activeTab, setActiveTab, setIsSurveyModalOpen, isAdminOpen, setIsAdminOpen, openAdminWithAuth } = useApp();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
@@ -43,20 +43,22 @@ export const Header: React.FC = () => {
               <Phone className="w-3 h-3" />
               <span>{siteConfig.phone}</span>
             </a>
-            <button
-              onClick={() => {
-                setIsAdminOpen(!isAdminOpen);
-                setMobileMenuOpen(false);
-              }}
-              className={`flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium transition-colors ${
-                isAdminOpen
-                  ? 'bg-sky-500 text-white'
-                  : 'bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700'
-              }`}
-            >
-              <Settings className="w-3 h-3" />
-              <span>{isAdminOpen ? '사용자 화면' : '관리자'}</span>
-            </button>
+            {(!siteConfig.hideAdminButton || isAdminOpen) && (
+              <button
+                onClick={() => {
+                  openAdminWithAuth();
+                  setMobileMenuOpen(false);
+                }}
+                className={`flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium transition-colors ${
+                  isAdminOpen
+                    ? 'bg-sky-500 text-white'
+                    : 'bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700'
+                }`}
+              >
+                <Settings className="w-3 h-3" />
+                <span>{isAdminOpen ? '사용자 화면' : '관리자'}</span>
+              </button>
+            )}
           </div>
         </div>
       </div>

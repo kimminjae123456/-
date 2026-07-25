@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { SiteConfig, Inquiry, InquiryStatus, PortfolioItem, BlogPost } from '../types';
-import { Settings, FileText, FolderPlus, BookOpen, Save, RefreshCw, Trash2, Edit3, Plus, Download, CheckCircle, Search, Filter, Shield, Phone, Mail, MapPin, X, Eye } from 'lucide-react';
+import { Settings, FileText, FolderPlus, BookOpen, Save, RefreshCw, Trash2, Edit3, Plus, Download, CheckCircle, Search, Filter, Shield, Phone, Mail, MapPin, X, Eye, LogOut, Lock, Key } from 'lucide-react';
 
 export const AdminDashboard: React.FC = () => {
   const {
@@ -21,6 +21,7 @@ export const AdminDashboard: React.FC = () => {
     deleteBlogPost,
     resetToDefaultData,
     setIsAdminOpen,
+    logoutAdmin,
     showToast
   } = useApp();
 
@@ -217,6 +218,15 @@ export const AdminDashboard: React.FC = () => {
             >
               <Eye className="w-4 h-4" />
               <span>사용자 화면 보기</span>
+            </button>
+
+            <button
+              onClick={logoutAdmin}
+              className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-rose-950/50 hover:text-rose-300 text-slate-300 text-xs font-bold border border-slate-700 hover:border-rose-800 transition-colors flex items-center gap-1.5"
+              title="관리자 세션 종료"
+            >
+              <LogOut className="w-3.5 h-3.5 text-rose-400" />
+              <span>로그아웃</span>
             </button>
           </div>
         </div>
@@ -520,6 +530,52 @@ export const AdminDashboard: React.FC = () => {
                   onChange={(e) => setConfigForm({ ...configForm, heroImageUrl: e.target.value })}
                   className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:border-sky-500"
                 />
+              </div>
+
+              {/* Admin Security Section */}
+              <div className="md:col-span-2 pt-6 border-t border-slate-800">
+                <div className="flex items-center gap-2 text-sky-400 font-bold text-sm mb-4">
+                  <Lock className="w-4 h-4" />
+                  <span>관리자 전용 보안 및 비밀번호 설정</span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                  <div className="space-y-2">
+                    <label className="block text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                      <Key className="w-3.5 h-3.5 text-amber-400" />
+                      <span>관리자 접속 비밀번호</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={configForm.adminPassword || '1234'}
+                      onChange={(e) => setConfigForm({ ...configForm, adminPassword: e.target.value })}
+                      placeholder="예: 1234"
+                      className="w-full px-4 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-sm text-white focus:border-sky-500 font-mono"
+                    />
+                    <p className="text-[11px] text-slate-400">
+                      * 초기 비밀번호는 <strong className="text-amber-300">1234</strong> 입니다. 원하시는 비밀번호로 변경하세요.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2 flex flex-col justify-center">
+                    <label className="flex items-center gap-3 cursor-pointer p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={!!configForm.hideAdminButton}
+                        onChange={(e) => setConfigForm({ ...configForm, hideAdminButton: e.target.checked })}
+                        className="w-4 h-4 text-sky-600 bg-slate-900 border-slate-700 rounded focus:ring-sky-500"
+                      />
+                      <div>
+                        <span className="text-xs font-bold text-white block">
+                          일반 화면에서 [관리자] 버튼 완전 숨기기
+                        </span>
+                        <span className="text-[11px] text-slate-400 block mt-0.5">
+                          체크 시 헤더/푸터 버튼이 안 보이며, 푸터 저작권 문구 3회 클릭으로만 비밀번호창이 열립니다.
+                        </span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           </form>

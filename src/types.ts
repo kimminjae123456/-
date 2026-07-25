@@ -12,6 +12,8 @@ export interface SiteConfig {
   businessNumber: string;
   ceoName: string;
   workingHours: string;
+  adminPassword?: string;
+  hideAdminButton?: boolean;
 }
 
 export type FacilityType = '공장 및 상업용 루프탑' | '축사 및 농가 지붕' | '임야' | string;

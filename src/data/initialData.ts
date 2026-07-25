@@ -13,7 +13,9 @@ export const initialSiteConfig: SiteConfig = {
   heroImageUrl: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&q=80&w=1600',
   businessNumber: '442-14-02849',
   ceoName: '김민재',
-  workingHours: '평일 08:30 ~ 18:00 (주말/공휴일 긴급 견적 접수 가능)'
+  workingHours: '평일 08:30 ~ 18:00 (주말/공휴일 긴급 견적 접수 가능)',
+  adminPassword: '1234',
+  hideAdminButton: false
 };
 
 export const initialPortfolios: PortfolioItem[] = [
