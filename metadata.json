@@ -1,0 +1,6 @@
+{
+  "name": "솔라클리어 - 태양광 청소 전문 기업",
+  "description": "태양광 패널 전문 청소 및 유지보수 서비스 솔라클리어 웹사이트 및 맞춤형 견적 관리 대시보드",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
