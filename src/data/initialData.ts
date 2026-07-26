@@ -14,8 +14,8 @@ export const initialSiteConfig: SiteConfig = {
   businessNumber: '442-14-02849',
   ceoName: '김민재',
   workingHours: '평일 08:30 ~ 18:00 (주말/공휴일 긴급 견적 접수 가능)',
-  adminPassword: '1234',
-  hideAdminButton: false
+  adminPassword: '1024',
+  hideAdminButton: true
 };
 
 export const initialPortfolios: PortfolioItem[] = [

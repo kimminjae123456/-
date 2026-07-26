@@ -6,20 +6,18 @@ export const Footer: React.FC = () => {
   const { siteConfig, setActiveTab, isAdminOpen, setIsAdminOpen, openAdminWithAuth, showToast } = useApp();
   const [clickCount, setClickCount] = useState(0);
 
-  const handleSecretTripleClick = () => {
+  const handleSecretFiveClick = () => {
     const newCount = clickCount + 1;
     setClickCount(newCount);
 
     if (newCount === 1) {
-      // Reset after 3 seconds if not completed
-      setTimeout(() => setClickCount(0), 3000);
+      // Reset after 4 seconds if not completed
+      setTimeout(() => setClickCount(0), 4000);
     }
 
-    if (newCount >= 3) {
+    if (newCount >= 5) {
       setClickCount(0);
       openAdminWithAuth();
-    } else if (siteConfig.hideAdminButton) {
-      showToast(`관리자 모드 진입 (${newCount}/3회 클릭)`, 'info');
     }
   };
 
@@ -143,9 +141,8 @@ export const Footer: React.FC = () => {
           <div>
             <span>상호명: {siteConfig.companyName}</span> | <span>대표자: {siteConfig.ceoName}</span> | <span>사업자등록번호: {siteConfig.businessNumber}</span>
             <p 
-              onClick={handleSecretTripleClick}
-              className="mt-0.5 cursor-pointer select-none hover:text-slate-400 transition-colors"
-              title="관리자 연속 클릭 액션"
+              onClick={handleSecretFiveClick}
+              className="mt-0.5 select-none transition-colors"
             >
               © 2026 Solar Clear Corp. All Rights Reserved. 본 사이트의 무단 전재 및 복제를 금합니다.
             </p>

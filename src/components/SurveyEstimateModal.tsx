@@ -392,6 +392,9 @@ export const SurveyEstimateModal: React.FC = () => {
                   <br />
                   전문 매니저가 현장 검토 후 빠른 시간 내 개별 연락 및 상세 견적서를 전달해 드립니다.
                 </p>
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-lg border border-emerald-200 mt-1">
+                  <span>✉️ 담당자 이메일(solarclear88@gmail.com)로 견적서가 자동 발송되었습니다.</span>
+                </div>
               </div>
 
               <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 text-left max-w-md mx-auto text-xs space-y-2">

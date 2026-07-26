@@ -43,20 +43,16 @@ export const Header: React.FC = () => {
               <Phone className="w-3 h-3" />
               <span>{siteConfig.phone}</span>
             </a>
-            {(!siteConfig.hideAdminButton || isAdminOpen) && (
+            {isAdminOpen && (
               <button
                 onClick={() => {
                   openAdminWithAuth();
                   setMobileMenuOpen(false);
                 }}
-                className={`flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium transition-colors ${
-                  isAdminOpen
-                    ? 'bg-sky-500 text-white'
-                    : 'bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700'
-                }`}
+                className="flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium transition-colors bg-sky-500 text-white hover:bg-sky-600"
               >
                 <Settings className="w-3 h-3" />
-                <span>{isAdminOpen ? '사용자 화면' : '관리자'}</span>
+                <span>사용자 화면</span>
               </button>
             )}
           </div>

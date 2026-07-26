@@ -22,7 +22,7 @@ export const AdminAuthModal: React.FC = () => {
     e.preventDefault();
     setErrorMsg('');
 
-    const currentPass = siteConfig.adminPassword || '1234';
+    const currentPass = siteConfig.adminPassword || '1024';
 
     if (passwordInput.trim() === currentPass) {
       setIsAdminAuthenticated(true);
@@ -71,9 +71,8 @@ export const AdminAuthModal: React.FC = () => {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-2 flex items-center justify-between">
-              <span>관리자 비밀번호</span>
-              <span className="text-[11px] text-slate-500 font-normal">(초기 비밀번호: 1234)</span>
+            <label className="block text-xs font-semibold text-slate-300 mb-2">
+              관리자 비밀번호
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">

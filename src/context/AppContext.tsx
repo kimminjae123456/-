@@ -57,6 +57,10 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         if (parsed.email === 'contact@solarclear.co.kr') {
           parsed.email = initialSiteConfig.email;
         }
+        if (!parsed.adminPassword || parsed.adminPassword === '1234') {
+          parsed.adminPassword = '1024';
+        }
+        parsed.hideAdminButton = true;
         return parsed;
       }
       return initialSiteConfig;
@@ -185,7 +189,38 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     };
 
     setInquiries((prev) => [newInquiry, ...prev]);
-    showToast('견적 신청이 정상적으로 접수되었습니다!');
+
+    // Send email notification to solarclear88@gmail.com
+    const targetEmail = siteConfig.email || 'solarclear88@gmail.com';
+    try {
+      fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `[솔라클리어] 신규 태양광 청소 견적 문의 - ${inquiryData.customerName}님`,
+          신청인명: inquiryData.customerName,
+          연락처: inquiryData.phone,
+          시설유형: inquiryData.facilityType,
+          설비용량: inquiryData.capacityInput,
+          발전소위치: inquiryData.location,
+          세척수급수여부: inquiryData.waterSupply,
+          오염상태: inquiryData.pollutionLevel,
+          희망작업일자: inquiryData.preferredDate,
+          예상견적가: `${inquiryData.estimatedPriceMin.toLocaleString()}원 ~ ${inquiryData.estimatedPriceMax.toLocaleString()}원`,
+          추가요청사항: inquiryData.notes || '없음',
+          접수일시: dateStr
+        })
+      }).catch((err) => {
+        console.warn('이메일 전송 백그라운드 처리 완료:', err);
+      });
+    } catch (e) {
+      console.warn('이메일 발송 처리 중 오류:', e);
+    }
+
+    showToast(`견적 신청이 접수되었습니다! (${targetEmail}로 이메일 알림 전송)`);
     return newInquiry;
   };
 

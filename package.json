@@ -1,75 +1,35 @@
-export interface SiteConfig {
-  companyName: string;
-  companyTagline: string;
-  heroTitle: string;
-  heroSubtitle: string;
-  phone: string;
-  email: string;
-  address: string;
-  kakaoChatUrl: string;
-  primaryColor: 'blue' | 'sky' | 'indigo' | 'slate';
-  heroImageUrl: string;
-  businessNumber: string;
-  ceoName: string;
-  workingHours: string;
-  adminPassword?: string;
-  hideAdminButton?: boolean;
-}
-
-export type FacilityType = '공장 및 상업용 루프탑' | '축사 및 농가 지붕' | '임야' | string;
-
-export type InquiryStatus = '신규 접수' | '상담 진행중' | '견적 발송' | '작업 확정' | '작업 완료' | '취소';
-
-export interface Inquiry {
-  id: string;
-  customerName: string;
-  phone: string;
-  email?: string;
-  facilityType: FacilityType;
-  capacityKw: number | string;
-  capacityInput?: string;
-  waterSupply?: '예' | '아니요';
-  location: string;
-  pollutionLevel: string;
-  preferredDate: string;
-  notes?: string;
-  estimatedPriceMin: number;
-  estimatedPriceMax: number;
-  status: InquiryStatus;
-  createdAt: string;
-  adminMemo?: string;
-}
-
-export interface PortfolioItem {
-  id: string;
-  title: string;
-  category: '메가와트' | '상업용' | '주택용' | '축사/농가';
-  location: string;
-  capacity: string;
-  efficiencyGain: string;
-  beforeImageUrl: string;
-  afterImageUrl: string;
-  description: string;
-  cleaningMethod: string;
-  date: string;
-  featured?: boolean;
-}
-
-export interface BlogPost {
-  id: string;
-  title: string;
-  category: string;
-  author: string;
-  date: string;
-  readTime: string;
-  coverImageUrl: string;
-  excerpt: string;
-  content: string;
-  views: number;
-}
-
-export interface ToastMessage {
-  id: string;
-  type: 'success' | 'info' | 'error';
-  message: string;
+{
+  "name": "react-example",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port=3000 --host=0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf dist server.js",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@google/genai": "^2.4.0",
+    "@tailwindcss/vite": "^4.1.14",
+    "@vitejs/plugin-react": "^5.0.4",
+    "lucide-react": "^0.546.0",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1",
+    "vite": "^6.2.3",
+    "express": "^4.21.2",
+    "dotenv": "^17.2.3",
+    "motion": "^12.23.24"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "autoprefixer": "^10.4.21",
+    "esbuild": "^0.25.0",
+    "tailwindcss": "^4.1.14",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.3",
+    "@types/express": "^4.17.21"
+  }
 }

@@ -547,13 +547,13 @@ export const AdminDashboard: React.FC = () => {
                     </label>
                     <input
                       type="text"
-                      value={configForm.adminPassword || '1234'}
+                      value={configForm.adminPassword || '1024'}
                       onChange={(e) => setConfigForm({ ...configForm, adminPassword: e.target.value })}
-                      placeholder="예: 1234"
+                      placeholder="예: 1024"
                       className="w-full px-4 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-sm text-white focus:border-sky-500 font-mono"
                     />
                     <p className="text-[11px] text-slate-400">
-                      * 초기 비밀번호는 <strong className="text-amber-300">1234</strong> 입니다. 원하시는 비밀번호로 변경하세요.
+                      * 현재 설정된 관리자 비밀번호: <strong className="text-amber-300">{configForm.adminPassword || '1024'}</strong>
                     </p>
                   </div>
 
